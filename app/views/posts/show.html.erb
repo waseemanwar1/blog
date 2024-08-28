@@ -1,0 +1,34 @@
+<div class="container mx-auto px-4 py-6">
+  <!-- Notification -->
+  <% if notice.present? %>
+    <p class="text-green-600 mb-4"><%= notice %></p>
+  <% end %>
+
+  <!-- Post Content -->
+  <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <%= render @post %>
+  </div>
+
+  <!-- Action Links as Buttons -->
+  <div class="flex space-x-4 mb-6">
+    <%= link_to "Edit this post", edit_post_path(@post), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    &nbsp;&nbsp;
+    <%= link_to "Back to posts", posts_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    &nbsp;&nbsp;
+    <%= button_to "Destroy this post", @post, method: :delete, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto" %>
+  </div>
+  <br>
+  <!-- Like/Unlike Button -->
+  <% if user_signed_in? %>
+    <div class="mb-4">
+      <% if @post.liked_by?(current_user) %>
+        <%= button_to 'Unlike', like_post_path(@post), method: :post, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+      <% else %>
+        <%= button_to 'Like', like_post_path(@post), method: :post, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Likes Count -->
+  <p class="text-gray-700"><%= @post.likes.count %> Likes</p>
+</div>

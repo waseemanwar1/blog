@@ -1,0 +1,28 @@
+<div class="container mx-auto px-4 py-6">
+  <!-- Notice Message -->
+  <% if notice.present? %>
+    <p class="text-green-600 mb-4">
+      <%= notice %>
+    </p>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= button_to 'log out', destroy_user_session_path, method: :delete, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <%end%>
+  <!-- Header -->
+  <h1 class="text-3xl font-bold mb-6">Posts</h1>
+  <br>
+  <!-- Posts Container -->
+  <div id="posts" class="space-y-6">
+    <% @posts.each do |post| %>
+      <div class="bg-white shadow-md rounded-lg p-6">
+        <%= render post %>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <br>
+  <!-- New Post Link -->
+  <div class="mt-6">
+    <%= link_to "New post", new_post_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+</div>
