@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy like ]
+  before_action :set_post, only: %i[ show edit update destroy like dislike]
 
   # GET /posts or /posts.json
   def index
@@ -58,11 +58,12 @@ class PostsController < ApplicationController
   end
 
   def like
-    if @post.liked_by?(current_user)
-      @post.likes.find_by(user: current_user).destroy
-    else
-      @post.likes.create(user: current_user)
-    end
+    @post.likes.create(user: current_user)
+    redirect_to @post
+  end
+
+  def dislike
+    @post.dis_like(current_user)
     redirect_to @post
   end
 
